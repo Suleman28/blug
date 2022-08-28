@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><% content_for :title, "Articles" %></title>
+</head>
+<body class="bg-black">
+    <div class="max-w-7x1 mx-auto text-center">
+    <h1 class="text-5xl font-bold text-left text-gray-200">Articles</h1>
+    <h2 class="text-left mb-16 text-gray-400">View all the articles here and edit, create or delete as you please.</h2>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Author
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Description
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Created At
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @articles.each do |article| %>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                    <%= article.id %>
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-sky-400 whitespace-nowrap">
+                    <%= article.user.username if article.user %>
+                </th>
+                <td class="px-6 py-4">
+                    <a href="/articles/<%= article.id %>" class="hover:underline"><%= article.title %></a>
+                </td>
+                <td class="px-6 py-4">
+                    <%= article.description %>
+                </td>
+                <td class="px-6 py-4">
+                    <%# <%= time_ago_in_words(article.updated_at) %> 
+                    <%= article.updated_at.strftime("%d/%m/%Y at %k:%M") %>
+                </td>
+                <td class="px-6 py-4 text-right space-x-2 flex">
+                    <a href="/articles/<%= article.id %>" class="font-medium text-sky-500 hover:underline">View</a>
+                    <a href="/articles/<%= article.id %>/edit" class="font-medium text-sky-600 hover:underline">Edit</a>
+                    <%= button_to article_path(article), method: :delete, class: "font-medium text-red-600 hover:underline" do %>Delete<% end %>
+                </td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+    </div>
+    <div class="text-left">
+        <a href="/articles/new">
+            <button type="button" class="text-white bg-blue-500 font-medium rounded-md text-sm px-5 py-2.5 mt-4">New Article</button>
+        </a>
+    </div>
+    </div>
+</body>
+</html>

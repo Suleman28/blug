@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><% content_for :title, "View Article" %></title>
+</head>
+<body class="bg-black">
+    <div class="max-w-7x1 mx-auto">
+        <div class="mb-16">
+        <h1 class="text-5xl font-bold text-left text-gray-200 mb-4">Article Preview</h1>
+        <a href="/articles" class="text-sky-400 text-lg">View all articles</a>
+        </div>
+        <h1 class="text-gray-200 text-3xl font-bold"><%= @article.title %></h1>
+        <div class="my-4">
+        <h2 class="text-gray-200">Author: <span class="text-sky-400 font-regular">@<%= @article.user.username if @article.user %></span></h2>
+        <h2 class="text-gray-200">Last Updated: <span class="text-sky-400 font-regular"><%= @article.updated_at.strftime("%d/%m/%Y at %k:%M") %></span></h2>
+        </div>
+        <p><%= simple_format(@article.description, class: "text-gray-400") %></p>
+        <div class="text-left">
+        <a href="/articles/<%= @article.id %>/edit">
+            <button type="button" class="text-white bg-blue-500 font-medium rounded-md text-sm px-5 py-2.5 mt-4">Edit Article</button>
+        </a>
+    </div>
+    </div>
+</body>
+</html>
